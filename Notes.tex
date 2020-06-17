@@ -1,0 +1,119 @@
+\input{preamble.tex}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%% Sections Format %%%%%%%%%%%%%%%%%%%%
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%% Main report %%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\setcounter{page}{1}
+
+\chapter{Rigid body: Kinematics \& Dynamics}
+
+\section{Kinematics}
+
+Let $P_{i}$ represent an arbitrary point on the rigid body 'i' that is 
+shown in Figure \ref{fig:rigid_body} and $C_{i}$ the center the body's center of 
+mass. Furthermore, the frame $f_{i}$ is rigidly attached to the body (translates
+and rotates with it), while the $F$ frame is the inertial frame of reference.
+
+\begin{figure}[h]
+    \centering\includegraphics[scale=0.2]{Images/rigid_body_diagram.png}
+    \caption{Rigid Body}
+    \label{fig:rigid_body}
+\end{figure}
+
+The center of mass of the body can be defined as
+\[
+    \pvec{r}{OC_{i}}{F}{F} = \frac{1}{m_{i}}\int_{m_i} \pvec{r}{OP_{i}}{F}{F} \  dm_{i}
+    \quad \text{where} \quad m_{i} = \int_{m_i} dm_{i}.
+\]
+
+\subsection{Position}
+The position of the arbitrary point $P_{i}$ with respect to the inertial frame 
+is defined as
+\begin{equation}    
+    \pvec{r}{OP_{i}}{F}{F} = \pvec{r}{OC_{i}}{F}{F} + \rot{R}{f_{i}}{F} \  \pvec{r}{C_{i}P_{i}}{f_i}{f_i},
+    \label{eq:position_rigid_body}
+\end{equation}
+
+where $\rot{R}{f_{i}}{F}$ is the rotation matrix of body frame $f_{i}$ with respect to 
+the inertial frame $F$.
+
+\subsection{Velocity}
+The velocity of the the arbitrary point $P_{i}$ with respect to the inertial frame 
+is defined as
+
+\[
+    \pvec{\dot{r}}{OP_{i}}{F}{F} = \pvec{\dot{r}}{OC_{i}}{F}{F} + 
+    \frac{d}{dt}(\rot{R}{f_{i}}{F} \  \pvec{r}{C_{i}P_{i}}{f_i}{f_i}),
+\]
+
+\begin{equation}
+    \pvec{\dot{r}}{OP_{i}}{F}{F} = \pvec{\dot{r}}{OC_{i}}{F}{F} + 
+    \rot{\dot{R}}{f_{i}}{F} \  \pvec{r}{C_{i}P_{i}}{f_i}{f_i} + 
+    \rot{R}{f_{i}}{F} \  \pvec{\dot{r}}{C_{i}P_{i}}{f_i}{f_i}.
+    \label{eq:velocity_general}
+\end{equation}
+
+We know that for a rigid body the distance between to points remains constant 
+meaning that $\pvec{\dot{r}}{C_{i}P_{i}}{f_i}{f_i} = 0$. The time derivative of 
+the rotation matrix can be defined as 
+\begin{equation}
+    \rot{\dot{R}}{f_{i}}{F} = S(\pvec{\omega}{f_{i}}{F}{F}) \ \rot{R}{f_{i}}{F},
+    \label{eq:rot_mat_derivative}
+\end{equation}
+
+where, $\pvec{\omega}{f_{i}}{F}{F}$ the rotational velocity of $f_{i}$ frame 
+with resepct to $F$ frame and $S(\vecd{a})$ skew-symetrix matrix defined as 
+\[
+    S(\vecd{a}) = \begin{bmatrix}
+        0 && -a_{3} && a_{2} \\
+        a_{3} && 0 && -a_{1} \\ 
+        -a_{2} && a_{1} && 0 \\ 
+    \end{bmatrix}, \quad \text{where} \quad \vecd{a} = \begin{bmatrix}
+        a_{1} \\ a_{2} \\ a_{3}
+    \end{bmatrix}.
+\]
+
+Given the above equation \eqref{eq:velocity_general} becomes
+\begin{align*}
+    \pvec{\dot{r}}{OP_{i}}{F}{F} = \pvec{\dot{r}}{OC_{i}}{F}{F} + 
+    S(\pvec{\omega}{f_{i}}{F}{F}) \rot{R}{f_{i}}{F} \ \pvec{r}{C_{i}P_{i}}{f_i}{f_i} \\
+    & = \pvec{\dot{r}}{OC_{i}}{F}{F} - S(\rot{R}{f_{i}}{F} \ \pvec{r}{C_{i}P_{i}}{f_i}{f_i}) \ \pvec{\omega}{f_{i}}{F}{F} \\ 
+    & = \pvec{\dot{r}}{OP_{i}}{F}{F} = \pvec{\dot{r}}{OC_{i}}{F}{F} -
+    \rot{R}{f_{i}}{F} \ S( \ \pvec{r}{C_{i}P_{i}}{f_i}{f_i}) \ (\rot{R}{f_{i}}{F})^{T} \ \pvec{\omega}{f_{i}}{F}{F}.  
+\end{align*}
+
+or
+\begin{equation}
+    \pvec{\dot{r}}{OP_{i}}{F}{F} = \pvec{\dot{r}}{OC_{i}}{F}{F} - 
+    \rot{R}{f_{i}}{F} \ S( \ \pvec{r}{C_{i}P_{i}}{f_i}{f_i})\ \pvec{\omega}{f_{i}}{F}{f_i}.
+    \label{eq:velocity_rigid_body}
+\end{equation}
+
+It can be proven that the rotational velocity of the body frame with respect to
+the inertial frame (expressed in the body frame) can be written as:
+
+\begin{equation}
+    \pvec{\omega}{f_{i}}{F}{f_i} = G(\vecd{\theta_{i}})\dot{\theta_{i}} = 
+    G_{i}\dot{\theta_{i}}, \quad G_{i} = G(\vecd{\theta_{i}}),  
+    \label{eq:angular_velocity_expression}
+\end{equation}
+
+where $\theta_{i}$ is the vector with the parameters that describe the orientation 
+of the body frame with respect to the inertial frame (euler angles, euler parameters,
+rodrigues parameters, etc.).
+
+If we define the generalized rigid body parameters as 
+\begin{equation}
+    \vecd{q}_{r_{i}} = \begin{bmatrix}
+        \pvec{\dot{r}}{OC_{i}}{F}{F} \\  \vecd{\theta_{i}}
+    \end{bmatrix}
+\end{equation}
+    
+    
+
+\end{document}

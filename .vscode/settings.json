@@ -1,0 +1,43 @@
+{
+    "latex-workshop.latex.recipes":[
+        {
+            "name": "run",
+            "tools": [
+              "xelatex",
+            ]
+        }
+    ],
+
+    "latex-workshop.latex.tools":[
+    
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {}
+        }
+    ],
+    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.latex.autoClean.run": "onFailed",
+    "cSpell.language": "en,en-GB",
+    "grammarly.overrides": [
+        {
+            "files": [
+                "**/Report.tex"
+            ],
+            "config": {
+                "audience": "expert",
+                "dialect": "british",
+                "domain": "academic",
+                "emotions": [],
+                "goals": [],
+                "emotion": "mild"
+            }
+        }
+    ]
+}
