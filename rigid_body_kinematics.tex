@@ -245,11 +245,11 @@ point $p_{i}$ as
 \section{Dynamics}
 
 There are several methods for developing the dynamic equations of motion of
-the rigid bodies. In this section, the \textit{principle of virtual work in dynamics} 
+rigid bodies. In this section, the \textit{principle of virtual work in dynamics} 
 will
 be used to obtain the differential equations that govern the spatial motion of
-the rigid bodies. Based on D'Alembert's principle, a body "$i$" (rigid or flexible) 
-in a dynamic equilibrium obeys the following equation
+rigid bodies. Based on D'Alembert's principle, a body "$i$" (rigid or flexible) 
+in a dynamic equilibrium obeys the following 
 
 \begin{equation}
     \delta W^{e}_{i} = \delta W^{in}_{i},
@@ -257,7 +257,7 @@ in a dynamic equilibrium obeys the following equation
 \end{equation}
 
 where, $\delta W^{e}_{i}$ is the virtual work of the externaly applied forces 
-to the body and $\delta W^{in}_{i}$ is the virtual work the the inertial forces.
+to the body and $\delta W^{in}_{i}$ is the virtual work of the the inertial forces.
 
 \subsection{Virtual work of inertial forces}
 For a continuum the virtual work of inertial forces is defined as 
@@ -270,13 +270,13 @@ For a continuum the virtual work of inertial forces is defined as
 
 where $p_i$ is an arbitrary point of the body $"i"$.
 
-For a rigid body it has proven that 
+For a rigid body it has proven that the following equations hold
 
 \[
     \pvec{\ddot{r}}{op_{i}}{F}{F} = L_{r}(\vecd{q}_{r_{i}}) \ 
     \vecd{\ddot{q}}_{r_{i}} + \vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, 
     \vecd{\dot{q}}_{r_{i}}) \quad \text{and} \quad \delta \pvec{r}{op_{i}}{F}{F} 
-    = L_{r}(\vecd{q}_{r_{i}})\ \delta\vecd{q}_{r_{i}}
+    = L_{r}(\vecd{q}_{r_{i}})\ \delta\vecd{q}_{r_{i}}.
 \]
 
 Combining the above with equation \eqref{eq:virtual_work_inertial_definition} 
@@ -446,16 +446,85 @@ Combining the two equation above we get
     \right]
 \end{equation}
 
+\section{Virtual work of external forces}
+Let $\vecd{F}_{e_{p_i}}$ an external force that acts on the rigid body 
+at point $p_i$ as shown in Figure \ref{fig:rigid_body_forces}.
+Then the virtual work of the external forces this point can be defined as 
 
-% -G^{T}_{i}\ (S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ [ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} 
-    % - S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}]         
+\begin{figure}[h]
+    \centering\includegraphics[scale=0.2]{Images/rigid_body_diagram_force.png}
+    \caption{Rigid Body Under Force}
+    \label{fig:rigid_body_forces}
+\end{figure}
 
-% \[
-%     \vecd{f}_{v_{r_i}}(\vecd{q}_{r_{i}}, 
-%     \vecd{\dot{q}}_{r_{i}}) = - \int_{m_i} (L_{r_i})^{T} \ \vecd{a}_{v_{r_i}}\ 
-%     \ dm_{i}
-%     \vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, \vecd{\dot{q}}_{r_{i}}) = 
-% \]
+\begin{align*}
+    \delta W^{e}_{p_i} &= (\vecd{F}^{F}_{e_{p_i}})^{T}\ \delta \pvec{r}{op_{i}}{F}{F}\\ 
+    &= (\vecd{F}^{F}_{e_{p_i}})^{T}\ L_{r}(\vecd{q}_{r_{i}})\ \delta \vecd{q}_{r_{i}},
+\end{align*}
+
+We define the generalized force on point $p_i$ as 
+\begin{equation}
+    \vecd{Q}_{r_{p_i}} = L^{T}_{r}(\vecd{q}_{r_{i}})\ \vecd{F}^{F}_{e_{p_i}}
+    \label{eq:gener_point_force}
+\end{equation}
+
+then the equation above becomes,
+
+\begin{equation}
+    \delta W^{e}_{p_i} = \vecd{Q}^{T}_{r_{p_i}} \delta \vecd{q}_{r_{i}}.
+    \label{eq:virtual_external_work_pi}
+\end{equation}
+
+Based on the definition \eqref{eq:lamda_mat_rigid_body} and the equation of 
+the generalized force on point $p_i$ (\eqref{eq:gener_point_force}),
+we get
+\[
+    \vecd{Q}_{r_{p_i}} = 
+    \begin{bmatrix}
+        I_{3 \times 3} \\ -G^{T}_{i} (S(\pvec{r}{c_{i}p_{i}}{f_{i}}{f_{i}}))^{T}
+        (\rot{R}{f_{i}}{F})^{T}
+    \end{bmatrix} \vecd{F}^{F}_{e_{p_i}} = 
+    \begin{bmatrix}
+            \vecd{F}^{F}_{e_{p_i}} \\ -G^{T}_{i} (S(\pvec{r}{c_{i}p_{i}}{f_{i}}{f_{i}}))^{T}
+            \ \vecd{F}^{f_i}_{e_{p_i}}
+        \end{bmatrix}.
+\]
+
+We define the moment with respect to point $c_i$, expressed in the body 
+frame as 
+
+\[
+    \vecd{M}_{c_i}^{f_i} = S(\pvec{r}{c_{i}p_{i}}{f_{i}}{f_{i}})\ \vecd{F}^{f_i}_{e_{p_i}},
+\]
+then the equation above becomes 
+
+\begin{equation}
+    \vecd{Q}_{r_{p_i}} = 
+    \begin{bmatrix}
+        \vecd{F}^{F}_{e_{p_i}} \\ G^{T}_{i} \vecd{M}_{c_i}^{f_i} 
+    \end{bmatrix}.
+\end{equation}
+
+Let $n_f$ be the number of forces acting on the body in different points 
+$p^{j}_i$ and $n_m$ the number of moments with respect to point $c_i$.
+Then, the total virtual work of external forces and moments 
+acting on the body $"i"$ can be easily computed as  
+
+\begin{equation}
+    \delta W^{e}_{i} = \vecd{Q}^{T}_{r_i}\ \delta \vecd{q}_{r_{i}}, 
+    \quad \text{where} \quad 
+    \vecd{Q}_{r_i} = 
+    \begin{bmatrix}
+        \sum\limits_{j=1}^{n_f}\left(\vecd{F}^{F}_{e_i}\right)_j 
+        \\ G^{T}_{i} \sum\limits_{j=1}^{n_m}\left(\vecd{M}_{c_i}^{f_i}\right)_j 
+
+    \end{bmatrix}.
+    \label{eq:virtual_work_rigid_body_external_forces}
+\end{equation}
+
+
+
+
 
 % Furthermore, in the case that $c_{i}$ is the center of mass of the body $"i"$ then it
 %  can be defined as
