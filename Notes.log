@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.7.16)  18 JUN 2020 00:28
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.7.16)  18 JUN 2020 14:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -488,7 +488,7 @@ LaTeX Font Info:    ... okay on input line 3.
 \AtBeginShipoutBox=\box46
 ABD: EveryShipout initializing macros
 \c@lstlisting=\count146
-
+ (./rigid_body_kinematics.tex
 Chapter 1.
 File: Images/rigid_body_diagram.png Graphic file (type bmp)
 <Images/rigid_body_diagram.png>
@@ -496,14 +496,22 @@ File: Images/rigid_body_diagram.png Graphic file (type bmp)
 
 
 
-] [2] [3] (./Notes.aux) ) 
-Here is how much of TeX's memory you used:
- 14663 strings out of 493007
- 282051 string characters out of 6136719
- 343244 words of memory out of 5000000
- 18337 multiletter control sequences out of 15000+600000
- 7141 words of font info for 37 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 64i,10n,56p,474b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
+] [2]
 
-Output written on Notes.pdf (3 pages).
+LaTeX Warning: Reference `eq:velocity_rigid_body_matrix' on page 3 undefined on input line 209.
+
+[3]) [4] (./Notes.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 14677 strings out of 493007
+ 282453 string characters out of 6136719
+ 345322 words of memory out of 5000000
+ 18346 multiletter control sequences out of 15000+600000
+ 7149 words of font info for 38 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 64i,10n,56p,593b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on Notes.pdf (4 pages).

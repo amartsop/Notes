@@ -1,0 +1,238 @@
+\chapter{Rigid body}
+
+\section{Kinematics}
+
+Let $P_{i}$ represent an arbitrary point on the rigid body 'i' that is 
+shown in Figure \ref{fig:rigid_body} and $C_{i}$ the center the body's center of 
+mass. Furthermore, the frame $f_{i}$ is rigidly attached to the body (translates
+and rotates with it), while the $F$ frame is the inertial frame of reference.
+
+\begin{figure}[h]
+    \centering\includegraphics[scale=0.2]{Images/rigid_body_diagram.png}
+    \caption{Rigid Body}
+    \label{fig:rigid_body}
+\end{figure}
+
+The center of mass of the body can be defined as
+\[
+    \pvec{r}{oc_{i}}{F}{F} = \frac{1}{m_{i}}\int_{m_i} \pvec{r}{op_{i}}{F}{F} \  dm_{i}
+    \quad \text{where} \quad m_{i} = \int_{m_i} dm_{i}.
+\]
+
+\subsection{Position}
+The position of the arbitrary point "$p_{i}$" with respect to the inertial frame 
+is defined as
+\begin{equation}    
+    \pvec{r}{op_{i}}{F}{F} = \pvec{r}{oc_{i}}{F}{F} + \rot{R}{f_{i}}{F} \  \pvec{r}{c_{i}p_{i}}{f_i}{f_i},
+    \label{eq:position_rigid_body}
+\end{equation}
+
+where $\rot{R}{f_{i}}{F}$ is the rotation matrix of body frame $f_{i}$ with respect to 
+the inertial frame $F$.
+
+\subsection{Velocity}
+The velocity of the the arbitrary point $P_{i}$ with respect to the inertial frame 
+is defined as
+
+\[
+    \pvec{\dot{r}}{op_{i}}{F}{F} = \pvec{\dot{r}}{oc_{i}}{F}{F} + 
+    \frac{d}{dt}(\rot{R}{f_{i}}{F} \  \pvec{r}{c_{i}p_{i}}{f_i}{f_i}),
+\]
+
+\begin{equation}
+    \pvec{\dot{r}}{op_{i}}{F}{F} = \pvec{\dot{r}}{oc_{i}}{F}{F} + 
+    \rot{\dot{R}}{f_{i}}{F} \  \pvec{r}{c_{i}p_{i}}{f_i}{f_i} + 
+    \rot{R}{f_{i}}{F} \  \pvec{\dot{r}}{c_{i}p_{i}}{f_i}{f_i}.
+    \label{eq:velocity_general}
+\end{equation}
+
+We know that for a rigid body the distance between to points remains constant 
+meaning that $\pvec{\dot{r}}{c_{i}p_{i}}{f_i}{f_i} = 0$. The time derivative of 
+the rotation matrix can be defined as 
+\begin{equation}
+    \rot{\dot{R}}{f_{i}}{F} = S(\pvec{\omega}{f_{i}}{F}{F}) \ \rot{R}{f_{i}}{F},
+    \label{eq:rot_mat_derivative}
+\end{equation}
+
+where, $\pvec{\omega}{f_{i}}{F}{F}$ the rotational velocity of $f_{i}$ frame 
+with resepct to $F$ frame and $S(\vecd{a})$ skew-symetrix matrix defined as 
+\[
+    S(\vecd{a}) = \begin{bmatrix}
+        0 && -a_{3} && a_{2} \\
+        a_{3} && 0 && -a_{1} \\ 
+        -a_{2} && a_{1} && 0 \\ 
+    \end{bmatrix}, \quad \text{where} \quad \vecd{a} = \begin{bmatrix}
+        a_{1} \\ a_{2} \\ a_{3}
+    \end{bmatrix}.
+\]
+
+Given the above equation \eqref{eq:velocity_general} becomes
+\begin{align*}
+    \pvec{\dot{r}}{op_{i}}{F}{F} 
+    & = \pvec{\dot{r}}{oc_{i}}{F}{F} + 
+    S(\pvec{\omega}{f_{i}}{F}{F}) \rot{R}{f_{i}}{F} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} \\
+    & = \pvec{\dot{r}}{oc_{i}}{F}{F} - S(\rot{R}{f_{i}}{F} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \pvec{\omega}{f_{i}}{F}{F} \\ 
+    & = \pvec{\dot{r}}{op_{i}}{F}{F} = \pvec{\dot{r}}{oc_{i}}{F}{F} -
+    \rot{R}{f_{i}}{F} \ S( \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ (\rot{R}{f_{i}}{F})^{T} \ \pvec{\omega}{f_{i}}{F}{F}.  
+\end{align*}
+
+or
+\begin{equation}
+    \pvec{\dot{r}}{op_{i}}{F}{F} = \pvec{\dot{r}}{oc_{i}}{F}{F} - 
+    \rot{R}{f_{i}}{F} \ S( \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ \pvec{\omega}{f_{i}}{F}{f_i}.
+    \label{eq:velocity_rigid_body}
+\end{equation}
+
+It can be proven that the rotational velocity of the body frame with respect to
+the inertial frame (expressed in the body frame) can be written as:
+
+\begin{equation}
+    \pvec{\omega}{f_{i}}{F}{f_i} = G(\vecd{\theta}_{i}) \ \dot{\vecd{\theta}_{i}} = 
+    G_{i} \ \dot{\vecd{\theta}_{i}}, \quad G_{i} = G(\vecd{\theta}_{i}),  
+    \label{eq:angular_velocity_expression}
+\end{equation}
+
+where $\vecd{\theta}_{i}$ is the vector with the parameters that describe the orientation 
+of the body frame with respect to the inertial frame (euler angles, euler parameters,
+rodrigues parameters, etc.).
+
+Given expression \eqref{eq:angular_velocity_expression}, equation \eqref{eq:velocity_rigid_body}
+becomes    
+
+\[
+    \pvec{\dot{r}}{op_{i}}{F}{F} = \pvec{\dot{r}}{oc_{i}}{F}{F} - 
+    \rot{R}{f_{i}}{F} \ S( \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ 
+    G_{i}\ \dot{\vecd{\theta}_{i}}.
+\]
+
+Finally, if we define the generalized rigid body coordinates as 
+\begin{equation}
+    \vecd{q}_{r_{i}} = \begin{bmatrix}
+        \pvec{\dot{r}}{oc_{i}}{F}{F} \\  \vecd{\theta}_{i}
+    \end{bmatrix},
+    \label{eq:rigid_body_coordinates}
+\end{equation}
+
+then equation \eqref{eq:velocity_rigid_body} becomes
+\begin{equation}
+    \pvec{\dot{r}}{op_{i}}{F}{F} = L_{r}(\vecd{q}_{r_{i}}) \ \dot{\vecd{q}}_{r_{i}},
+    \label{velocity_rigid_body_matrix}
+\end{equation}
+
+where,
+\begin{equation}
+    L_{r}(\vecd{q}_{r_{i}}) = L_{r_i} = \begin{bmatrix}
+    I_{3 \times 3} && -\rot{R}{f_{i}}{F} \ S( \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ G_{i}         
+    \label{eq:lamda_mat_rigid_body}
+    \end{bmatrix}
+\end{equation}
+
+\subsection{Acceleration}
+
+The acceleration of the the arbitrary point $P_{i}$ with respect to the inertial frame 
+is defined as
+    
+\begin{align*}
+    \pvec{\ddot{r}}{op_{i}}{F}{F} 
+    & = \frac{d}{dt}( \pvec{\dot{r}}{oc_{i}}{F}{F} + 
+    S(\pvec{\omega}{f_{i}}{F}{F}) \rot{R}{f_{i}}{F} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \\
+    & = \pvec{\ddot{r}}{oc_{i}}{F}{F} +  \pvec{\dot{\omega}}{f_{i}}{F}{F} \times 
+    (\rot{R}{f_{i}}{F} \  \pvec{r}{c_{i}p_{i}}{f_i}{f_i}) + 
+    \pvec{\omega}{f_{i}}{F}{F} \times 
+    \frac{d}{dt}(\rot{R}{f_{i}}{F} \  \pvec{r}{c_{i}p_{i}}{f_i}{f_i}).
+\end{align*}
+
+Based on the above, the expression for the acceleration can take the 
+following form 
+    
+
+\begin{equation}
+    \pvec{\ddot{r}}{op_{i}}{F}{F} = \pvec{\ddot{r}}{oc_{i}}{F}{F} +
+    \rot{R}{f_{i}}{F} \ S(\pvec{\alpha}{f_{i}}{F}{f_i}) \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}
+    + \rot{R}{f_{i}}{F} \ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}
+    \label{acceleration_rigid_body}
+\end{equation}
+
+where 
+\begin{equation}
+    \pvec{\alpha}{f_{i}}{F}{f_i} = \pvec{\dot{\omega}}{f_{i}}{F}{f_i} = 
+    \frac{d}{dt}(G(\vecd{\theta}_{i}) \ \dot{\vecd{\theta}_{i}}) = 
+    \dot{G}_{i} \ \dot{\vecd{\theta}_{i}} + 
+    G_{i} \ \ddot{\vecd{\theta}_{i}},
+    \label{eq:angular_acceleration_expression}
+\end{equation}
+
+the expression for the angular acceleration of the body. Substituting 
+\eqref{eq:angular_acceleration_expression} into \eqref{acceleration_rigid_body}
+leads to 
+
+\begin{align*}
+   \pvec{\ddot{r}}{op_{i}}{F}{F} 
+   & =  \pvec{\ddot{r}}{oc_{i}}{F}{F} - \rot{R}{f_{i}}{F} \ S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \pvec{\alpha}{f_{i}}{F}{f_i}
+    + \rot{R}{f_{i}}{F} \ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} \\ 
+    & = \pvec{\ddot{r}}{oc_{i}}{F}{F} - \rot{R}{f_{i}}{F} \ S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) (\dot{G}_{i} \ \dot{\vecd{\theta}_{i}} + 
+    G_{i} \ \ddot{\vecd{\theta}_{i}}) + \rot{R}{f_{i}}{F} \ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} 
+\end{align*}
+
+or 
+
+\[
+    \pvec{\ddot{r}}{op_{i}}{F}{F} = \pvec{\ddot{r}}{oc_{i}}{F}{F} - 
+    \rot{R}{f_{i}}{F} \ S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}
+    -     \rot{R}{f_{i}}{F} \ S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ {G}_{i} \ \ddot{\vecd{\theta}_{i}}
+    + \rot{R}{f_{i}}{F} \ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}  
+    \]
+If we define 
+
+\begin{equation}    
+\vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, \vecd{\dot{q}}_{r_{i}}) = 
+    \rot{R}{f_{i}}{F}\ [ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}  
+    - S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}],
+    \label{coriolis_acceleration_rigid_body}
+\end{equation}
+then the above expression can be written as \[    \pvec{\ddot{r}}{op_{i}}{F}{F} = \pvec{\ddot{r}}{oc_{i}}{F}{F} -\rot{R}{f_{i}}{F} \ S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ {G}_{i} \ \ddot{\vecd{\theta}_{i}} + \vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, \vecd{\dot{q}}_{r_{i}}). \] Using the expression \eqref{eq:lamda_mat_rigid_body} we have \begin{equation} \pvec{\ddot{r}}{op_{i}}{F}{F} = L_{r}(\vecd{q}_{r_{i}}) \ \vecd{\ddot{q}}_{r_{i}} + \vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, \vecd{\dot{q}}_{r_{i}}).
+    \label{acceleration_rigid_body_matrix}
+\end{equation}
+
+\subsection{Virtual Displacement}
+
+We define the virtual displacement of an arbitrary point "$p_{i}$" of the 
+rigid body "$i$" as 
+
+\begin{equation}
+    \delta \pvec{r}{op_{i}}{F}{F} = \frac{\partial \pvec{r}{op_{i}}{F}{F}}{\partial\vecd{q}_{r_{i}}}
+    \ \delta \vecd{q}_{r_{i}}.
+    \label{eq:virtual_displacement_in}
+\end{equation}
+
+The velocity of this point has previously defined 
+(equation \eqref{eq:velocity_rigid_body_matrix}) as 
+
+\begin{align*}
+    & \ \pvec{\dot{r}}{op_{i}}{F}{F}  = L_{r}(\vecd{q}_{r_{i}}) \ \dot{\vecd{q}}_{r_{i}} \\ 
+    & \Rightarrow  \frac{\partial \pvec{r}{op_{i}}{F}{F}}{\partial t} = 
+    L_{r}(\vecd{q}_{r_{i}}) \ \frac{\partial \vecd{q}_{r_{i}}}{\partial t} \\ 
+    & \Rightarrow  \frac{\partial \pvec{r}{op_{i}}{F}{F}}{\partial \vecd{q}_{r_{i}}} 
+    \frac{\partial \vecd{q}_{r_{i}}}{\partial t} = 
+    L_{r}(\vecd{q}_{r_{i}}) \ \frac{\partial \vecd{q}_{r_{i}}}{\partial t}
+\end{align*}
+
+For indepedent $\frac{\partial \vecd{q}_{r_{i}}}{\partial t}$ it is obvious that 
+
+\begin{equation}
+    \frac{\partial \pvec{r}{op_{i}}{F}{F}}{\partial \vecd{q}_{r_{i}}}
+    = L_{r}(\vecd{q}_{r_{i}}).
+    \label{eq:virtual_displacement_partial}
+\end{equation}
+
+Combining equations \eqref{eq:virtual_displacement_in} and 
+\eqref{eq:virtual_displacement_partial} we define the virtual displacement of 
+point $p_{i}$ as  
+
+\begin{equation}
+    \delta \pvec{r}{op_{i}}{F}{F} = L_{r}(\vecd{q}_{r_{i}})\ \delta \vecd{q}_{r_{i}}
+    \label{eq:virtual_displacement}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Dynamics %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\section{Dynamics}
