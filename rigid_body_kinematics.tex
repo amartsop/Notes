@@ -182,7 +182,7 @@ If we define
 \vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, \vecd{\dot{q}}_{r_{i}}) = 
     \rot{R}{f_{i}}{F}\ [ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}  
     - S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}],
-    \label{coriolis_acceleration_rigid_body}
+    \label{eq:coriolis_acceleration_rigid_body}
 \end{equation}
 then the above expression can be written as 
 
@@ -198,7 +198,7 @@ Using the expression \eqref{eq:lamda_mat_rigid_body} we have
     \pvec{\ddot{r}}{op_{i}}{F}{F} = L_{r}(\vecd{q}_{r_{i}}) \ 
     \vecd{\ddot{q}}_{r_{i}} + \vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, 
     \vecd{\dot{q}}_{r_{i}}).
-    \label{acceleration_rigid_body_matrix}
+    \label{eq:acceleration_rigid_body_matrix}
 \end{equation}
 
 \subsection{Virtual Displacement}
@@ -376,6 +376,87 @@ The vector of centrifugal-coriolis forces was given by the equation
     \vecd{\dot{q}}_{r_{i}}) = - \int_{m_i} (L_{r_i})^{T} \ \vecd{a}_{v_{r_i}}\ 
     \ dm_{i}
 \]
+
+Substituting expressions \eqref{eq:lamda_mat_rigid_body} and 
+\eqref{eq:coriolis_acceleration_rigid_body}
+
+\begin{align}
+    \vecd{f}_{v_{r_i}} &= - \int_{m_i} \begin{bmatrix} I_{3 \times 3} \\ -G^{T}_{i}\ (S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ \rot{R}{F}{f_i}         
+       \end{bmatrix}\ \rot{R}{f_{i}}{F}\ [ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} 
+    - S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}]
+    \ dm_{i} \\
+    &= - \int_{m_i} \begin{bmatrix}
+    \rot{R}{f_{i}}{F}\ [ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} 
+    - S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}] \\ 
+    -G^{T}_{i}\ (S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ [ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} 
+    - S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}]         
+    \end{bmatrix}\
+    \ dm_{i}.
+\end{align}
+
+If we define 
+\[
+   \vecd{f}_{v_{r_i}} = \begin{bmatrix}
+    \vecd{f}^{r}_{v_{r_i}} \\ 
+    \vecd{f}^{\theta}_{v_{r_i}}
+    \end{bmatrix},
+\]
+then,
+
+\begin{equation}
+    \vecd{f}^{r}_{v_{r_i}} = -\rot{R}{f_{i}}{F}\ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2}
+    \left[\int_{m_i} \pvec{r}{c_{i}p_{i}}{f_i}{f_i}\ dm_{i}\right]
+    + \rot{R}{f_{i}}{F}\ \left[\int_{m_i} S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ dm_{i}\right] 
+    \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}
+    \label{eq:coriolis_forces_rigid_body_r_component} 
+\end{equation}
+
+and 
+
+\begin{multline*}
+    \vecd{f}^{\theta}_{v_{r_i}} = G^{T}_{i}\ \left[\int_{m_i}(S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ 
+    (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2}\ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}\ dm_{i} \right] \\
+    - G^{T}_{i}\ \left[\int_{m_i}(S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ 
+    S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ dm_{i}\right]\ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}
+\end{multline*}
+
+Given the expression for the inertial tensor as defined in equation 
+\eqref{eq:inertial_tensor_rigid_body}, the above equation can be written as 
+\[
+    \vecd{f}^{\theta}_{v_{r_i}} = G^{T}_{i}\ \left[\int_{m_i}(S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ 
+    (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2}\ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}\ dm_{i} \right] 
+    - G^{T}_{i}\ I^{f_i}_{c_i} \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}.
+\]
+
+It can be easily proven that the integral in the above equation can be written as 
+
+\begin{align*}
+    \int_{m_i}(S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ 
+    (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2}\ \pvec{r}{c_{i}p_{i}}{f_i}{f_i}\ dm_{i} 
+    & = - S(\pvec{\omega}{f_{i}}{F}{f_i}) \left[\int_{m_i}(S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ 
+    S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ dm_{i}\right] \pvec{\omega}{f_{i}}{F}{f_i} \\ 
+    & = - S(\pvec{\omega}{f_{i}}{F}{f_i})\ I^{f_i}_{c_i}\  \pvec{\omega}{f_{i}}{F}{f_i}.
+\end{align*}
+
+Combining the two equation above we get 
+\begin{equation}
+    \vecd{f}^{\theta}_{v_{r_i}} = - G^{T}_{i}\ \left[ 
+    S(\pvec{\omega}{f_{i}}{F}{f_i})\ I^{f_i}_{c_i}\ \pvec{\omega}{f_{i}}{F}{f_i}
+    + I^{f_i}_{c_i} \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}  
+    \right]
+\end{equation}
+
+
+% -G^{T}_{i}\ (S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}))^{T}\ [ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2} \ \pvec{r}{c_{i}p_{i}}{f_i}{f_i} 
+    % - S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i}) \ \dot{G}_{i} \ \dot{\vecd{\theta}_{i}}]         
+
+% \[
+%     \vecd{f}_{v_{r_i}}(\vecd{q}_{r_{i}}, 
+%     \vecd{\dot{q}}_{r_{i}}) = - \int_{m_i} (L_{r_i})^{T} \ \vecd{a}_{v_{r_i}}\ 
+%     \ dm_{i}
+%     \vecd{a}_{v_{r_i}}(\vecd{q}_{r_{i}}, \vecd{\dot{q}}_{r_{i}}) = 
+% \]
+
 % Furthermore, in the case that $c_{i}$ is the center of mass of the body $"i"$ then it
 %  can be defined as
 % \[
