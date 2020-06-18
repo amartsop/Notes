@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.7.16)  18 JUN 2020 14:05
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.7.16)  18 JUN 2020 18:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -433,7 +433,11 @@ Package: appendix 2009/09/02 v1.2b extra appendix facilities
 \c@@pps=\count143
 \c@@ppsavesec=\count144
 \c@@ppsaveapp=\count145
-)) (./Notes.aux)
+)) (./Notes.aux
+
+LaTeX Warning: Label `eq:mass_matrix_rigid_body' multiply defined.
+
+)
 \openout1 = `Notes.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
@@ -496,22 +500,18 @@ File: Images/rigid_body_diagram.png Graphic file (type bmp)
 
 
 
-] [2]
+] [2] [3] [4] [5]) [6] (./Notes.aux)
 
-LaTeX Warning: Reference `eq:velocity_rigid_body_matrix' on page 3 undefined on input line 209.
-
-[3]) [4] (./Notes.aux)
-
-LaTeX Warning: There were undefined references.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 14677 strings out of 493007
- 282453 string characters out of 6136719
- 345322 words of memory out of 5000000
- 18346 multiletter control sequences out of 15000+600000
- 7149 words of font info for 38 fonts, out of 8000000 for 9000
+ 14686 strings out of 493007
+ 282745 string characters out of 6136719
+ 345438 words of memory out of 5000000
+ 18353 multiletter control sequences out of 15000+600000
+ 7157 words of font info for 39 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 64i,10n,56p,593b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,15n,56p,474b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Notes.pdf (4 pages).
+Output written on Notes.pdf (6 pages).
