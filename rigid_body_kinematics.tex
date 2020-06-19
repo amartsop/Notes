@@ -103,7 +103,7 @@ becomes
 Finally, if we define the generalized rigid body coordinates as 
 \begin{equation}
     \vecd{q}_{r_{i}} = \begin{bmatrix}
-        \pvec{\dot{r}}{oc_{i}}{F}{F} \\  \vecd{\theta}_{i}
+        \pvec{r}{oc_{i}}{F}{F} \\  \vecd{\theta}_{i}
     \end{bmatrix},
     \label{eq:rigid_body_coordinates}
 \end{equation}
@@ -517,31 +517,113 @@ acting on the body $"i"$ can be easily computed as
     \begin{bmatrix}
         \sum\limits_{j=1}^{n_f}\left(\vecd{F}^{F}_{e_i}\right)_j 
         \\ G^{T}_{i} \sum\limits_{j=1}^{n_m}\left(\vecd{M}_{c_i}^{f_i}\right)_j 
-
     \end{bmatrix}.
-    \label{eq:virtual_work_rigid_body_external_forces}
+    \label{eq:virtual_external_work_rigid_body}
 \end{equation}
 
+\section{Equations of Motion} 
+Based on equations \eqref{eq:principle_of_virtual_work}, 
+\eqref{eq:virtual_inertial_work_rigid_body} and 
+\eqref{eq:virtual_external_work_rigid_body}, the principle of virtual 
+work for unconstrained motion can be defined as 
+
+\begin{align*}
+   & \delta W^{e}_{i} = \delta W^{in}_{i} \\
+   & \Rightarrow (\vecd{\ddot{q}}_{r_{i}}^{T}\ M_{r_i}  
+    - \vecd{f}_{v_{r_i}}^{T})\delta\vecd{q}_{r_{i}} = 
+    \vecd{Q}^{T}_{r_i}\ \delta \vecd{q}_{r_{i}} \\ 
+   & \Rightarrow (M_{r_i}\vecd{\ddot{q}}_{r_{i}}   
+    - \vecd{f}_{v_{r_i}})^{T}\ \delta\vecd{q}_{r_{i}} = 
+    \vecd{Q}^{T}_{r_i}\ \delta \vecd{q}_{r_{i}} \\ 
+   & \Rightarrow (M_{r_i}\vecd{\ddot{q}}_{r_{i}}   
+    - \vecd{f}_{v_{r_i}}-\vecd{Q}_{r_i})^{T}\ \delta\vecd{q}_{r_{i}} =  
+     \\ 
+\end{align*}
+
+In the case of unconstrained motion, the elements of the vector 
+$\delta \vecd{q}_{r_{i}}$ are independent. Thus, the above equation can 
+be written as 
 
 
+\begin{equation}
+    M_{r_i}\vecd{\ddot{q}}_{r_{i}} = \vecd{f}_{v_{r_i}} + \vecd{Q}_{r_i}.
+    \label{eq:equations_of_motion_rigid_body}
+\end{equation}
 
+or 
 
-% Furthermore, in the case that $c_{i}$ is the center of mass of the body $"i"$ then it
-%  can be defined as
-% \[
-%     \pvec{r}{oc_{i}}{F}{F} = \frac{1}{m_{i}}\int_{m_i} \pvec{r}{op_{i}}{F}{F} \  dm_{i}
-%     \quad \text{where} \quad m_{i} = \int_{m_i} dm_{i}.
-% \]
-% Given the above equations it is easily proven that 
-% \begin{align*}
-%     \int_{m_i} \pvec{r}{c_{i}p_{i}}{f_i}{f_i}\ dm_{i} 
-%     & = \rot{R}{F}{f_i}\int_{m_i} \pvec{r}{c_{i}p_{i}}{f_i}{F}\ dm_{i} \\ 
-%     & = \rot{R}{F}{f_i}(\int_{m_i} \pvec{r}{o_{i}p_{i}}{F}{F}\ dm_{i} - 
-%     \int_{m_i} \pvec{r}{o_{i}c_{i}}{F}{F}\ dm_{i}) \\
-%     & = \rot{R}{F}{f_i}(m_{i}\ \pvec{r}{o_{i}c_{i}}{F}{F} - 
-%     \pvec{r}{o_{i}c_{i}}{F}{F} \int_{m_i} \ dm_{i}) \\
-%     & = \vecd{0}.
-% \end{align*}
+\[
+    \begin{bmatrix}
+        m_{i}\ I_{3 \times 3} && m_{12} \\ m_{21} && G^{T}_{i} \ I^{f_i}_{c_i}\ G_i
+    \end{bmatrix}\ \begin{bmatrix}
+        \pvec{\ddot{r}}{oc_{i}}{F}{F} \\  \vecd{\ddot{\theta}}_{i}
+    \end{bmatrix} = 
+    \begin{bmatrix}
+      \vecd{f}^{r}_{v_{r_i}} \\ \vecd{f}^{\theta}_{v_{r_i}} 
+    \end{bmatrix} 
+    + \begin{bmatrix}
+        \sum\limits_{j=1}^{n_f}\left(\vecd{F}^{F}_{e_i}\right)_j 
+        \\ G^{T}_{i} \sum\limits_{j=1}^{n_m}\left(\vecd{M}_{c_i}^{f_i}\right)_j 
+    \end{bmatrix}.
+\]
+
+\subsection{Equations of motion on the body's centroid}
+
+In the case that $c_{i}$ is the center of mass of the body $"i"$ then the 
+equations of motion can be simplified significantly. The center of mass 
+can be defined as 
+
+\[
+    \pvec{r}{oc_{i}}{F}{F} = \frac{1}{m_{i}}\int_{m_i} \pvec{r}{op_{i}}{F}{F} \  dm_{i}
+    \quad \text{where} \quad m_{i} = \int_{m_i} dm_{i}.
+\]
+Given the above equation it is easily proven that 
+\begin{align*}
+    \int_{m_i} \pvec{r}{c_{i}p_{i}}{f_i}{f_i}\ dm_{i} 
+    & = \rot{R}{F}{f_i}\int_{m_i} \pvec{r}{c_{i}p_{i}}{f_i}{F}\ dm_{i} \\ 
+    & = \rot{R}{F}{f_i}(\int_{m_i} \pvec{r}{o_{i}p_{i}}{F}{F}\ dm_{i} - 
+    \int_{m_i} \pvec{r}{o_{i}c_{i}}{F}{F}\ dm_{i}) \\
+    & = \rot{R}{F}{f_i}(m_{i}\ \pvec{r}{o_{i}c_{i}}{F}{F} - 
+    \pvec{r}{o_{i}c_{i}}{F}{F} \int_{m_i} \ dm_{i}) \\
+    & = \vecd{0}.
+\end{align*} 
+Furthermore, based on the above equation 
+\[
+    \int_{m_i} S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ dm_{i} = \vecd{0}.
+\]
+Combining the above equations with equation \eqref{eq:mass_matrix_components_rigid_body}
+it is obvious
+\[
+    m^{r_i}_{12} = (m^{r_i}_{21})^{T} = -\rot{R}{f_{i}}{F}\ \int_{m_i} S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ dm_{i}\ G_{i} = 0.
+\]
+
+Similarly, from equation \eqref{eq:coriolis_forces_rigid_body_r_component}
+we get 
+\[
+    \vecd{f}^{r}_{v_{r_i}} = -\rot{R}{f_{i}}{F}\ (S(\pvec{\omega}{f_{i}}{F}{f_i}))^{2}
+    \left[\int_{m_i} \pvec{r}{c_{i}p_{i}}{f_i}{f_i}\ dm_{i}\right]
+    + \rot{R}{f_{i}}{F}\ \left[\int_{m_i} S(\pvec{r}{c_{i}p_{i}}{f_i}{f_i})\ dm_{i}\right] 
+    \dot{G}_{i} \ \dot{\vecd{\theta}_{i}} = 0.
+\]
+
+The equations of motion, in the case that the frame 
+$f_i$ is rigidly attached to the body's centroid, are defined as 
+
+\begin{equation}
+    \begin{bmatrix}
+        m_{i}\ I_{3 \times 3} && 0 \\ 0 && G^{T}_{i} \ I^{f_i}_{c_i}\ G_i
+    \end{bmatrix}\ \begin{bmatrix}
+        \pvec{\ddot{r}}{oc_{i}}{F}{F} \\  \vecd{\ddot{\theta}}_{i}
+    \end{bmatrix} = 
+    \begin{bmatrix}
+      0 \\ \vecd{f}^{\theta}_{v_{r_i}} 
+    \end{bmatrix} 
+    + \begin{bmatrix}
+        \sum\limits_{j=1}^{n_f}\left(\vecd{F}^{F}_{e_i}\right)_j 
+        \\ G^{T}_{i} \sum\limits_{j=1}^{n_m}\left(\vecd{M}_{c_i}^{f_i}\right)_j 
+    \end{bmatrix}.
+    \label{eq:}
+\end{equation}
 
 % From the equations above it is obvious that in the case that $c_i$ is the center 
 % of mass of the rigid body
